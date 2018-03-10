@@ -1,0 +1,101 @@
+﻿@model IEnumerable<BattleRoyalleApp.Models.Maquina>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Máquinas</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IpLocal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AtivirusInstalado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirewallInstalado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VersaoWindows)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VersaoNet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TamanhoHD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisponivelHD)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IpLocal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AtivirusInstalado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirewallInstalado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VersaoWindows)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VersaoNet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TamanhoHD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisponivelHD)
+            </td>
+            <td>
+                @*@Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id=item.Id })*@
+            </td>
+        </tr>
+    }
+
+</table>
+
+<hr />
+
+<div class="form-group">
+    @Html.Label("Comando", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.TextBox("txtComando", "", new { @class = "form-control" })
+    </div>
+    <div class="col-md-2">
+        <button type="button" id="btnEnviar" class="btn btn-success">Enviar</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $('#btnEnviar').click(function () {
+            var maquina = $('#txtComando').val();
+            $.ajax({
+                url: "/Maquina/Create",
+                type: "POST",
+                data: { maquina: maquina }
+            }).done(function (data) {
+                console.log(maquina);
+            }).fail(function () {
+                console.log("Error");
+            });
+        });
+    </script>
+}

@@ -64,7 +64,7 @@ namespace BattleService
 
         public void EnviarParaApi(Machine machine)
         {
-            var client = new RestClient("http://localhost:60246");
+            var client = new RestClient("http://192.168.100.23:60246");
             var request = new RestRequest("/api/BattleRoyalle", Method.POST);
             request.AddJsonBody(machine);
             client.Execute(request);
