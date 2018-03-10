@@ -21,8 +21,8 @@ namespace BattleService.Job
             {
                 Console.WriteLine($"Informando que job está rodando as {DateTime.Now}");
                 var machine = machineService.GetInformationMachine();
-                Console.WriteLine(machine.Nome + "  " + machine.IpLocal + "  " + machine.VersaoNet + "  " + machine.VersaoWindows + "  " + machine.AtivirusInstalado);
-                machineService.EnviarParaApi(machine);
+                //machineService.EnviarParaApi(machine);
+                machineService.ReceberCmdEExecutar();
             }
             catch (Exception e)
             {

