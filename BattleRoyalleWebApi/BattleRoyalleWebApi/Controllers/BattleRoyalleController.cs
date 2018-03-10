@@ -39,7 +39,9 @@ namespace BattleRoyalleWebApi.Controllers
         {
             try
             {
-                maquinas.Add(maquina);
+                var maq = maquinas.Find(m => m.IpLocal == maquina.IpLocal);
+                if (maq == null)
+                    maquinas.Add(maquina);
                 return true;
             }
             catch
