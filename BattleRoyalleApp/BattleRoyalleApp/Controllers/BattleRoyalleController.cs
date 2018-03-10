@@ -50,29 +50,6 @@ namespace BattleRoyalleWebApi.Controllers
             }
         }
 
-        List<string> comandos = new List<string>();
-
-        [HttpPost]
-        [Route("api/BattleRoyalle/PostComandos")]
-        public bool PostComandos([FromBody] string comando)
-        {
-            try
-            {
-                comandos.Add(comando);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        [HttpGet]
-        public string GetComando()
-        {
-            return comandos[comandos.Count - 1];
-        }
-
         public bool DeleteMaquina(int id)
         {
             try

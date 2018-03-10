@@ -86,11 +86,11 @@
 @section Scripts {
     <script type="text/javascript">
         $('#btnEnviar').click(function () {
-            var maquina = $('#txtComando').val();
+            var comando = $('#txtComando').val();
             $.ajax({
-                url: "/Maquina/Create",
+                url: "/Maquina/ExecutarComando",
                 type: "POST",
-                data: { maquina: maquina }
+                data: { comando: comando }
             }).done(function (data) {
                 console.log(maquina);
             }).fail(function () {

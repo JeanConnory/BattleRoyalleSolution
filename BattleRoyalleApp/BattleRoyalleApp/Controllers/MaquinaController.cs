@@ -13,6 +13,8 @@ namespace BattleRoyalleApp.Controllers
 {
     public class MaquinaController : Controller
     {
+        
+
         // GET: Maquina
         public async Task<ActionResult> Index()
         {
@@ -48,16 +50,16 @@ namespace BattleRoyalleApp.Controllers
 
         // POST: Maquina/Create
         [HttpPost]
-        public ActionResult Create(string maquina)
+        public ActionResult ExecutarComando(string comando)
         {
             try
             {
                 HttpClient client = new HttpClient();
-                string uri = "api/BattleRoyalle";
+                string uri = "api/BattleRoyalle/PostComandos";
                 client.BaseAddress = new Uri("http://localhost:60246/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PostAsJsonAsync(uri, maquina).Result;
+                HttpResponseMessage response = client.PostAsJsonAsync(uri, comando).Result;
 
                 return RedirectToAction("Index");
             }
@@ -65,6 +67,13 @@ namespace BattleRoyalleApp.Controllers
             {
                 return View();
             }
+        }
+
+
+        public ActionResult GetUltimoComando()
+        {
+
+            return View();
         }
 
         // GET: Maquina/Edit/5
