@@ -1,4 +1,5 @@
 ﻿using BattleService.Model;
+using RestSharp;
 using System;
 using System.Management;
 using System.Net;
@@ -59,6 +60,14 @@ namespace BattleService
             machine.VersaoWindows = getWindowsVersion();
             machine.VersaoNet = getNetVersion();
             return machine;
+        }
+
+        public void EnviarParaApi(Machine machine)
+        {
+            var client = new RestClient("http://localhost:60246");
+            var request = new RestRequest("/api/BattleRoyalle", Method.POST);
+            request.AddJsonBody(machine);
+            client.Execute(request);
         }
     }
 }
