@@ -1,6 +1,7 @@
 ﻿using BattleService.Model;
 using RestSharp;
 using System;
+using System.IO;
 using System.Management;
 using System.Net;
 using System.Net.Sockets;
@@ -51,6 +52,32 @@ namespace BattleService
             return Environment.Version.ToString();
         }
 
+        public string getSizeHD()
+        {
+            foreach (var drive in DriveInfo.GetDrives())
+            {
+                if (drive.IsReady)
+                {
+                    var size = drive.TotalSize / 1024 / 1024 / 1024;
+                    return size.ToString();
+                }
+            }
+            return "";
+        }
+
+        public string getFreeSizeHD()
+        {
+            foreach (var drive in DriveInfo.GetDrives())
+            {
+                if (drive.IsReady)
+                {
+                    var size = drive.TotalFreeSpace / 1024 / 1024 / 1024;
+                    return size.ToString();
+                }
+            }
+            return "";
+        }
+
         public Machine GetInformationMachine()
         {
             var machine = new Machine();
@@ -59,6 +86,8 @@ namespace BattleService
             machine.AtivirusInstalado = AntiVirusInstalado();
             machine.VersaoWindows = getWindowsVersion();
             machine.VersaoNet = getNetVersion();
+            machine.TamanhoHD = getSizeHD();
+            machine.DisponivelHD = getFreeSizeHD();
             return machine;
         }
 

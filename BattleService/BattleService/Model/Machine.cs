@@ -9,7 +9,7 @@
         public bool FirewallInstalado { get; set; }
         public string VersaoWindows { get; set; }
         public string VersaoNet { get; set; }
-        public decimal TamanhoHD { get; set; }
-        public decimal DisponivelHD { get; set; }
+        public string TamanhoHD { get; set; }
+        public string DisponivelHD { get; set; }
     }
 }
