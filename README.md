@@ -1,3 +1,3 @@
 # BattleRoyalleSolution
 
-Aplicação de detecção de novos computadores ligados a rede, feito com ASP.NET Core 2 para um hackathon.
+Aplicação de detecção de novos computadores ligados a rede, feito com ASP.NET Core 2.
